@@ -1,0 +1,10 @@
+[Unit]
+Description=Pre-create Obsidian daily notes nightly
+
+[Timer]
+OnCalendar=*-*-* 00:05 America/New_York
+# Catch up after the hub was off at 00:05.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

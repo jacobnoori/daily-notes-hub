@@ -1,0 +1,13 @@
+[Unit]
+Description=Pre-create Obsidian daily notes in the synced vault
+
+[Service]
+Type=oneshot
+# Runs as root (the default), which matches a Syncthing instance running as root.
+# If the vault is owned by another user, add User=<that user> via `systemctl edit daily-notes.service`.
+# Machine-specific settings live outside the repo: VAULT=/path/to/vault (required), DAYS=7 (optional).
+EnvironmentFile=/etc/default/daily-notes
+Environment=DAYS=7
+# Dates are computed in this timezone, regardless of the hub's system timezone.
+Environment=TZ=America/New_York
+ExecStart=/usr/bin/python3 -I /opt/daily-notes-hub/precreate-daily-notes.py ${VAULT} --days ${DAYS}
